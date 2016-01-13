@@ -12,7 +12,6 @@ First we load the data and convert the dates appropriately:
 ```{r}
 data<-read.csv("../activity.csv")
 data$date<-as.Date(data$date)
-library(lattice)
 ```
 
 ## What is mean total number of steps taken per day?
@@ -65,16 +64,3 @@ median(daily2, na.rm=T)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
-
-Making two plots to compare weekday and weekend activity:
-
-```{r}
-weekdays<-weekdays(data$date)
-DOW<-function(x){if(x=="Saturday"|x=="Sunday") "weekend" else "weekday"}
-weekendfactor<-sapply(weekdays, DOW)
-data<-cbind(data, weekendfactor)
-averageintervals<-tapply(data$steps, list(data$interval, data$weekendfactor), mean, na.rm=T)
-par(mfrow=c(2,1))
-plot(averageintervals[,1],type="l", ylab="weekday")
-plot(averageintervals[,2],type="l", ylab="weekend")
-```
